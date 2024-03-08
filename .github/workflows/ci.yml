@@ -28,4 +28,4 @@ jobs:
 
       - name: main only
         if: ${{ github.event_name == 'push' }}
-        run: echo "This is main"
+        run: exit -1
