@@ -1,8 +1,6 @@
 name: CI
 
 on:
-  merge_group:
-    types: [checks_requested]
   pull_request:
   push:
     branches:
@@ -28,4 +26,4 @@ jobs:
 
       - name: main only
         if: ${{ github.event_name == 'push' }}
-        run: echo "This is main"
+        run: exit -1
