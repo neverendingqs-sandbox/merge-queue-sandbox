@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  merge_group:
+    types: [checks_requested]
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo ${EVENT_TYPE}
+        env:
+          EVENT_TYPE: ${{ github.event_name }}
+
+      - name: Merge queue only
+        if: ${{ github.event_name == 'merge_group' }}
+        run: echo "This is merge queue"
+
+      - name: PR only
+        if: ${{ github.event_name == 'pull_request' }}
+        run: echo "This is a pull request"
+
+      - name: main only
+        if: ${{ github.event_name == 'push' }}
+        run: echo "This is main"
